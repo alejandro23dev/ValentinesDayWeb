@@ -14,18 +14,18 @@
                 <div class="d-flex flex-center flex-column flex-column-fluid ">
                     <form class="form w-100 fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate" id="kt_sign_in_form" data-kt-redirect-url="../../demo1/dist/index.html" action="#">
                         <div class="text-center mb-11">
-                            <img src="<?php echo base_url('public/assets/icon.jpg') ?>" class="w-50 rounded-circle" alt="" hidden>
+                            <img src="<?php echo base_url('public/assets/iconUsers.jpg') ?>" class="w-25 rounded-circle" alt="IMAGE">
                             <h1 class="text-dark fw-bolder mb-3">Registrate o Inicia Sesión</h1>
                             <div class="text-gray-500 fw-semibold fs-6">Empezemos por escoger una opción</div>
                         </div>
                         <div class="row g-3 mb-9">
                             <div class="col-md-6">
                                 <a href="#" id="give" class="btn btn-flex btn-outline btn-text-gray-700 btn-active-color-primary bg-state-light flex-center text-nowrap w-100 actions<?php echo $uniqid; ?>" data-selected="" data-action="give">
-                                    <img alt="Logo" src="<?php echo base_url('public/assets/regalo1.jpg') ?>" class="h-25px me-3 shadow rounded-circle">Hacer un Regalo</a>
+                                    <img alt="Logo" src="<?php echo base_url('public/assets/regalo.png') ?>" class="h-25px me-3 rounded-circle">Hacer un Regalo</a>
                             </div>
                             <div class="col-md-6">
                                 <a href="#" id="obtain" class="btn btn-flex btn-outline btn-text-gray-700 btn-active-color-primary bg-state-light flex-center text-nowrap w-100 actions<?php echo $uniqid; ?>" data-selected="" data-action="obtain">
-                                    <img alt="Logo" src="<?php echo base_url('public/assets/regalo1.jpg') ?>" class="h-25px me-3 shadow rounded-circle">Obtener Regalo</a>
+                                    <img alt="Logo" src="<?php echo base_url('public/assets/regalo.png') ?>" class="h-25px me-3 rounded-circle">Obtener Regalo</a>
                             </div>
                         </div>
                         <div class="separator separator-content my-14">
@@ -36,8 +36,11 @@
                             <label for="name" class="text-muted fs-8 ms-4 mt-1">Introduce un Nombre / Apodo por el que tu pareja te llame</label>
                         </div>
                         <div class="fv-row mb-3 fv-plugins-icon-container">
-                            <input type="text" id="link<?php echo $uniqid; ?>" placeholder="Enlace" autocomplete="off" class="form-control bg-transparent required<?php echo $uniqid; ?>">
-                            <label for="link" class="text-muted fs-8 ms-4 mt-1">Compartirás con tu pareja este enlace para que pueda registarse</label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1"><?php echo COMPANY_MARK; ?></span>
+                                <input type="text" id="link<?php echo $uniqid; ?>" placeholder="Enlace" autocomplete="off" class="form-control bg-transparent required<?php echo $uniqid; ?>" aria-describedby="basic-addon1">
+                                <label for="link" class="text-muted fs-8 ms-4 mt-1">Compartirás con tu pareja este enlace para que pueda registarse</label>
+                            </div>
                         </div>
                         <div class="row mt-2">
                             <div class="d-grid col-12 col-lg-6">

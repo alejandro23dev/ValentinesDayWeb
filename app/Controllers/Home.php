@@ -33,7 +33,7 @@ class Home extends BaseController
 			return view('logout');
 
 		$data['name'] = $this->objRequest->getPost('name');
-		$data['link'] = COMPANY_MARK . $this->objSession->get('user')['link'];
+		$data['link'] = $this->objSession->get('user')['link'];
 
 		return json_encode($this->objMainModel->objCreate('regalos', $data));
 	}
@@ -69,7 +69,7 @@ class Home extends BaseController
 		if (empty($this->objSession->get('user')) || empty($this->objSession->get('user')['link']))
 			return view('logout');
 
-		$data['regalos'] = $this->objMainModel->objData('regalos', 'link', COMPANY_MARK . $this->objSession->get('user')['link']);
+		$data['regalos'] = $this->objMainModel->objData('regalos', 'link', $this->objSession->get('user')['link']);
 		return view('home/regalos', $data);
 	}
 

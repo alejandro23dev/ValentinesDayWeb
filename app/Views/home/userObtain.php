@@ -28,7 +28,7 @@
                     <div class="card overlay overflow" style="min-height: 100px;">
                         <div class="card-body p-0">
                             <div class="overlay-wrapper">
-                                <img src="<?php echo base_url('public/assets/regalo.jpg'); ?>" class="w-100 regalos regalo-<?php echo $rg->id; ?> rounded" />
+                                <img src="<?php echo base_url('public/assets/regalo.png'); ?>" class="w-100 regalos regalo-<?php echo $rg->id; ?> rounded" />
                                 <img src="data:image/png;base64,<?php echo base64_encode($rg->image); ?>" class="w-100 rounded images image-<?php echo $rg->id; ?>" style="height: 250px;" alt="Image" hidden>
                             </div>
                             <div class="overlay-layer rounded button-open-1">
