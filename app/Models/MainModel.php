@@ -65,18 +65,17 @@ class MainModel extends Model
         return $return;
     } // ok
 
-    public function deleteAllRegalos($link)
+    public function deleteRegalos($link)
     {
         $return = array();
 
         $query = $this->db->table('regalos')
             ->where('link', $link)
-            ->delete();
+            ->update(array('obtain' => 1));
 
-        if ($query == true) {
+        if ($query == true)
             $return['error'] = 0;
-            $return['msg'] = 'success';
-        } else {
+        else {
             $return['error'] = 0;
             $return['msg'] = 'error on delete record';
         }
@@ -84,12 +83,14 @@ class MainModel extends Model
         return $return;
     }
 
-    public function objData($table, $field = null, $value = null)
+    public function objData($table, $field = null, $value = null, $field2 = null, $value2 = null)
     {
         $query = $this->db->table($table);
 
         if (!empty($field))
             $query->where($field, $value);
+        if (!empty($field2))
+            $query->where($field2, $value2);
 
         return $query->get()->getResult();
     } // ok
