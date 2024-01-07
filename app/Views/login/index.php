@@ -14,7 +14,7 @@
                 <div class="d-flex flex-center flex-column flex-column-fluid ">
                     <form class="form w-100 fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate" id="kt_sign_in_form" data-kt-redirect-url="../../demo1/dist/index.html" action="#">
                         <div class="text-center mb-11">
-                            <img src="<?php echo base_url('public/assets/iconUsers.jpg') ?>" class="w-25 rounded-circle" alt="IMAGE">
+                            <img src="<?php echo base_url('public/assets/iconUsers.jpg') ?>" class="w-25 rounded mb-6" alt="IMAGE">
                             <h1 class="text-dark fw-bolder mb-3">Registrate o Inicia Sesión</h1>
                             <div class="text-gray-500 fw-semibold fs-6">Empezemos por escoger una opción</div>
                         </div>

@@ -79,7 +79,7 @@
             $('#response').html(response);
             $.ajax({
                 type: "post",
-                url: "<?php echo base_url('Home/deleteAllRegalos'); ?>",
+                url: "<?php echo base_url('Home/obtainRegalo'); ?>",
                 dataType: "json",
                 success: function(response) {
 

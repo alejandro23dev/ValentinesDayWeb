@@ -65,13 +65,32 @@ class MainModel extends Model
         return $return;
     } // ok
 
-    public function deleteRegalos($link)
+    public function obtainRegalo($link)
     {
         $return = array();
 
         $query = $this->db->table('regalos')
             ->where('link', $link)
             ->update(array('obtain' => 1));
+
+        if ($query == true)
+            $return['error'] = 0;
+        else {
+            $return['error'] = 0;
+            $return['msg'] = 'error on delete record';
+        }
+
+        return $return;
+    }
+
+    public function deleteRegalo($link,$id)
+    {
+        $return = array();
+
+        $query = $this->db->table('regalos')
+            ->where('link', $link)
+            ->where('id', $id)
+            ->update(array('deleted' => 1));
 
         if ($query == true)
             $return['error'] = 0;
@@ -94,6 +113,17 @@ class MainModel extends Model
 
         return $query->get()->getResult();
     } // ok
+
+
+    public function getRegalos($link)
+    {
+        $query = $this->db->table('regalos')
+            ->where('link', $link)
+            ->where('obtain', 0)
+            ->where('deleted', 0);
+
+        return $query->get()->getResult();
+    }
 
     public function objCheckDuplicate($table, $field, $value, $id = null)
     {

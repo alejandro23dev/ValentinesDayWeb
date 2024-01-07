@@ -39,7 +39,9 @@ $routes->post('Home/uploadPhoto', 'Home::uploadPhoto');
 $routes->get('Home/userGive', 'Home::userGive');
 $routes->get('Home/userObtain', 'Home::userObtain');
 $routes->post('Home/getRegalos', 'Home::getRegalos');
-$routes->post('Home/deleteAllRegalos', 'Home::deleteAllRegalos');
+$routes->post('Home/deleteRegalo', 'Home::deleteRegalo');
+$routes->post('Home/obtainRegalo', 'Home::obtainRegalo');
+$routes->post('Home/modalCreate', 'Home::modalCreate');
 #LOGIN
 $routes->get('/', 'Login::index');
 $routes->post('Login/loginUserGive', 'Login::loginUserGive');

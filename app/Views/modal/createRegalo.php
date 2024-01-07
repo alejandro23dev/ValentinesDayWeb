@@ -6,13 +6,19 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-6">
-                        <label for="name">Nombre</label>
-                        <input type="text" id="txt-name" class="form-control">
-                    </div>
-                    <div class="col-6">
-                        <input type="file" id="file" class="mt-8">
+                <div class="col-12">
+                    <input type="text" id="txt-name" placeholder="Descripción" autocomplete="off" class="form-control bg-transparent required<?php echo $uniqid; ?>">
+                </div>
+                <!-- Dropzone -->
+                <div class="col-12 mt-6">
+                    <div class="dropzone mb-5" id="dropzone">
+                        <div class="dz-message needsclick">
+                            <i class="ki-duotone ki-file-up fs-4x text-primary"><span class="path1"></span><span class="path2"></span></i>
+                            <div class="ms-4">
+                                <h3 class="fs-5 fw-bold text-gray-900 mb-1">Imagen</h3>
+                                <span class="fs-7 fw-semibold text-gray-500">Examine o Arrastre</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -29,39 +35,60 @@
         $('#app-modal').html('');
     });
 
+    var myDropzone = new Dropzone("#dropzone", {
+        url: '<?php echo base_url('Home/uploadPhoto'); ?>',
+        method: 'post',
+        acceptedFiles: '.jpeg,.jpg,.png',
+        maxFiles: 1,
+        addRemoveLinks: true,
+        autoProcessQueue: false,
+        paramName: 'file',
+        uploadMultiple: false,
+        init: function() {
+            dropzone = this;
+            this.on("sending", function(file, xhr, formData) {});
+        }
+    });
+
     $('#btn_save<?php echo $uniqid; ?>').on('click', function() {
-        if ($('input').val() == '')
-            console.log('INPUTS VACIOS');
-        else {
-            $.ajax({
-                type: "post",
-                url: "<?php echo base_url('Home/uploadRegalo') ?>",
-                data: {
-                    'name': $('#txt-name').val().toUpperCase()
-                },
-                dataType: "json",
-                success: function(response) {
-                    if (response.error == 0) {
-                        getRegalos();
-                        let formData = new FormData();
-                        formData.append('file', $("#file")[0].files[0]);
-                        formData.append('id', response.id);
-                        $.ajax({
-                            type: "post",
-                            url: "<?php echo base_url('Home/uploadPhoto'); ?>",
-                            data: formData,
-                            dataType: "json",
-                            cache: false,
-                            contentType: false,
-                            processData: false,
-                            success: function(response) {
-                                getRegalos();
-                            },
-                            error: function(error) {}
-                        });
-                    }
-                }
-            });
+        if ($('input').val() == '') {
+            $('#txt-name').addClass('is-invalid');
+            alert('warning', 'Complete la información');
+        } else {
+            if (myDropzone.files.length > 0) {
+                myDropzone.processQueue();
+                myDropzone.on("complete", function(response) {
+                    $.ajax({
+                        type: "post",
+                        url: "<?php echo base_url('Home/uploadRegalo') ?>",
+                        data: {
+                            'name': $('#txt-name').val().toUpperCase()
+                        },
+                        dataType: "json",
+                        success: function(response) {
+                            if (response.error == 0) {
+                                let formData = new FormData();
+                                formData.append('file', $(myDropzone)[0].files[0]);
+                                formData.append('id', response.id);
+                                $.ajax({
+                                    type: "post",
+                                    url: "<?php echo base_url('Home/uploadPhoto'); ?>",
+                                    data: formData,
+                                    dataType: "json",
+                                    cache: false,
+                                    contentType: false,
+                                    processData: false,
+                                    success: function(response) {
+                                        getRegalos();
+                                    },
+                                    error: function(error) {}
+                                });
+                            }
+                        }
+                    });
+                });
+            } else
+                alert('warning', 'Seleccione una Imagen');
         }
     });
 
