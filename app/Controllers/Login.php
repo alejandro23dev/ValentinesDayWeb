@@ -43,18 +43,20 @@ class Login extends BaseController
         #params
         $name = htmlspecialchars(trim($this->objRequest->getPost('name')));
         $link =  COMPANY_MARK . $this->objRequest->getPost('link');
+        $password = password_hash(htmlspecialchars(trim($this->objRequest->getPost('password'))), PASSWORD_DEFAULT);
 
-        $verifyUser = $this->objLoginModel->loginUserGive($name, $link);
+        $verifyUser = $this->objLoginModel->verifyExistsUserGive($name, $link);
 
-        if ($verifyUser['error'] == 0)
+        if ($verifyUser['error'] == 1)
             return json_encode('EXISTS_LINK');
-        elseif ($verifyUser['error'] == 1) {
+        elseif ($verifyUser['error'] == 0) {
             $verifyLinks = $this->objMainModel->objData('usergive', 'link', $link);
             if (empty($verifyLinks)) {
                 $data['name'] =  $name;
                 $data['link'] =  $link;
+                $data['password'] =  $password;
                 $this->objMainModel->objCreate('usergive', $data);
-                $this->objMainModel->objCreate('userobtain', array('name' => $name, 'link' => $link));
+                $this->objMainModel->objCreate('userobtain', $data);
                 # Create Session
                 $session = array();
                 $session['name'] = $name;
@@ -71,8 +73,9 @@ class Login extends BaseController
         #params
         $name = htmlspecialchars(trim($this->objRequest->getPost('name')));
         $link = COMPANY_MARK . $this->objRequest->getPost('link');
+        $password = htmlspecialchars(trim($this->objRequest->getPost('password')));
 
-        $verifyUser = $this->objLoginModel->loginUserGive($name, $link);
+        $verifyUser = $this->objLoginModel->loginUserGive($name, $link, $password);
 
         if ($verifyUser['error'] == 0) {
             # Create Session
@@ -81,8 +84,11 @@ class Login extends BaseController
             $session['link'] = $link;
             $this->objSession->set('user', $session);
             return json_encode(0);
-        } else
+        }
+        if ($verifyUser['msg'] == 'USER_NOT_FOUND')
             return json_encode('USER_NOT_FOUND');
+        if ($verifyUser['msg'] == 'INVALID_PASSWORD')
+            return json_encode('INVALID_PASSWORD');
     }
 
     public function loginUserObtain()
@@ -90,8 +96,9 @@ class Login extends BaseController
         #params
         $name = htmlspecialchars(trim($this->objRequest->getPost('name')));
         $link = COMPANY_MARK . $this->objRequest->getPost('link');
+        $password = htmlspecialchars(trim($this->objRequest->getPost('password')));
 
-        $verifyUser = $this->objLoginModel->loginUserObtain($name, $link);
+        $verifyUser = $this->objLoginModel->loginUserObtain($name, $link, $password);
 
         if ($verifyUser['error'] == 0) {
             # Create Session
@@ -100,7 +107,10 @@ class Login extends BaseController
             $session['link'] = $link;
             $this->objSession->set('user', $session);
             return json_encode(0);
-        } else
+        }
+        if ($verifyUser['msg'] == 'USER_NOT_FOUND')
             return json_encode('USER_NOT_FOUND');
+        if ($verifyUser['msg'] == 'INVALID_PASSWORD')
+            return json_encode('INVALID_PASSWORD');
     }
 }

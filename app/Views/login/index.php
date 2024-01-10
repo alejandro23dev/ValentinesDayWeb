@@ -42,6 +42,10 @@
                                 <label for="link" class="text-muted fs-8 ms-4 mt-1">Compartirás con tu pareja este enlace para que pueda registarse</label>
                             </div>
                         </div>
+                        <div class="fv-row mb-3 fv-plugins-icon-container">
+                            <input type="password" id="password<?php echo $uniqid; ?>" placeholder="Contraseña" autocomplete="off" class="form-control bg-transparent required<?php echo $uniqid; ?>">
+                            <label for="password<?php echo $uniqid; ?>" class="text-muted fs-8 ms-4 mt-1">Compartirás con tu pareja esta contraseña para que pueda registarse</label>
+                        </div>
                         <div class="row mt-2">
                             <div class="d-grid col-12 col-lg-6">
                                 <button type="button" id="btn_register<?php echo $uniqid; ?>" class="btn btn-primary shadow" disabled>
@@ -60,7 +64,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="row">
+                <div class="row mt-6">
                     <div class="col-12">
                         <p class="text-center fs-4 text-muted text-uppercase">Contacto</p>
                     </div>
@@ -132,7 +136,8 @@
                     url: url,
                     data: {
                         'name': $('#name<?php echo $uniqid; ?>').val(),
-                        'link': $('#link<?php echo $uniqid; ?>').val()
+                        'link': $('#link<?php echo $uniqid; ?>').val(),
+                        'password': $('#password<?php echo $uniqid; ?>').val()
                     },
                     dataType: "json",
                     success: function(response) {
@@ -143,7 +148,7 @@
                             }, "2000");
                         } else if (response == 'EXISTS_LINK') {
                             $('#link<?php echo $uniqid; ?>').addClass('is-invalid');
-                            alert('warning', 'Enlace No Disponible');
+                            alert('warning', 'Enlace no disponible');
                         }
                     },
                     error: function(error) {
@@ -176,6 +181,7 @@
                     data: {
                         'name': $('#name<?php echo $uniqid; ?>').val(),
                         'link': $('#link<?php echo $uniqid; ?>').val(),
+                        'password': $('#password<?php echo $uniqid; ?>').val()
                     },
                     dataType: "json",
                     success: function(response) {
@@ -188,6 +194,9 @@
                             $('#link<?php echo $uniqid; ?>').addClass('is-invalid');
                             $('#name<?php echo $uniqid; ?>').addClass('is-invalid');
                             alert('warning', 'Credenciales Incorrectas');
+                        } else if (response == 'INVALID_PASSWORD') {
+                            $('#password<?php echo $uniqid; ?>').addClass('is-invalid');
+                            alert('warning', 'Contraseña incorrecta');
                         }
                     },
                     error: function(error) {
