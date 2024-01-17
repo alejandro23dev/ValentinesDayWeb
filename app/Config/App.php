@@ -23,8 +23,8 @@ class App extends BaseConfig
 	| environments.
 	|
 	*/
-	//public $baseURL = 'http://valentinesdayweb/';
-	public $baseURL = 'https://valentinedayweb.000webhostapp.com/';
+	public $baseURL = 'http://valentinesdayweb/';
+	//public $baseURL = 'https://valentinedayweb.000webhostapp.com/';
 
 	/*
 	|--------------------------------------------------------------------------

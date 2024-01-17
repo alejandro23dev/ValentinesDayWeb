@@ -37,7 +37,7 @@ $app = require rtrim($paths->systemDirectory, '/ ') . '/bootstrap.php';
 
 // Define ENVIRONMENT
 if (! defined('ENVIRONMENT')) {
-    define('ENVIRONMENT', env('CI_ENVIRONMENT', 'development'));
+    define('ENVIRONMENT', env('CI_ENVIRONMENT', 'production'));
 }
 /*
  *---------------------------------------------------------------
